@@ -13,7 +13,7 @@ function checkPermission(){
         // request permission from user
         Notification.requestPermission().then(function (p) {
             if (p === 'granted') {
-                 var notify = new Notification('Alarm time!', {
+                 var notify = new Notification('Alarm start', {
                     icon:"files/clock.png"
                 });
             } else {
