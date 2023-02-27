@@ -6,24 +6,21 @@ let alarmTime,checkAlarm=false;
 ringtone=new Audio("files/ringtone.mp3")
 
 
-function checkPermission(){
-      if (!window.Notification) {
+function checkPermission() {
+    if (!window.Notification) {
         console.log('Browser does not support notifications.');
     } else {
         // request permission from user
         Notification.requestPermission().then(function (p) {
-            if (p === 'granted') {
-                 var notify = new Notification('Alarm start', {
-                    icon:"files/clock.png"
-                });
-            } else {
+            if (p !== 'granted') {
                 console.log('User blocked notifications.');
-            }
+            } 
         }).catch(function (err) {
             console.error(err);
         });
     }
 }
+
 
 function notify() {
     
