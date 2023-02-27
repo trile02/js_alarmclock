@@ -3,8 +3,44 @@ selectMenu=document.querySelectorAll('select');
 SetAlarmbtn=document.querySelector('button');
 
 let alarmTime,checkAlarm=false;
-
+let permission;
 ringtone=new Audio("files/ringtone.mp3")
+
+
+function checkPermission(){
+      if (!window.Notification) {
+        console.log('Browser does not support notifications.');
+    } else {
+        // request permission from user
+        Notification.requestPermission().then(function (p) {
+            if (p === 'granted') {
+                 var notify = new Notification('Alarm time!', {
+                    icon:"files/clock.png"
+                });
+            } else {
+                console.log('User blocked notifications.');
+            }
+        }).catch(function (err) {
+            console.error(err);
+        });
+    }
+}
+
+function notify() {
+    
+        // check if permission is already granted
+        if (Notification.permission === 'granted') {
+            // notification object
+            var notify = new Notification('Alarm time!', {
+                icon:"files/clock.png"
+            });
+        } 
+        else {
+            console.log('Notifications permission not granted.');
+          }
+   
+}
+
         for (let i = 24; i > 0; i--){
             if (i<10){
                 i= "0"+i;
@@ -40,6 +76,7 @@ ringtone=new Audio("files/ringtone.mp3")
            {
               ringtone.play();
               ringtone.loop=true;
+              notify();
            }
 
         }, 1000);
@@ -65,3 +102,6 @@ ringtone=new Audio("files/ringtone.mp3")
             
             
             SetAlarmbtn.addEventListener("click",setAlarm);
+            
+            checkPermission();
+
