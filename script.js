@@ -3,6 +3,7 @@ selectMenu=document.querySelectorAll('select');
 SetAlarmbtn=document.querySelector('button');
 
 let alarmTime,checkAlarm=false;
+let checkTrigger=false;
 ringtone=new Audio("files/ringtone.mp3")
 
 
@@ -68,11 +69,15 @@ function notify() {
            s=s<10 ? "0" + s: s;
             
            currentTime.innerText = (`${h}:${m}:${s}`);
-           if (alarmTime==`${h}:${m}`)
+           if (alarmTime==`${h}:${m}` && !checkTrigger)
            {
               ringtone.play();
               ringtone.loop=true;
               notify();
+              checkTrigger=true;
+           }
+           else  if (alarmTime != `${h}:${m}`){
+            checkTrigger=false;
            }
 
         }, 1000);
