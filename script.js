@@ -3,7 +3,6 @@ selectMenu=document.querySelectorAll('select');
 SetAlarmbtn=document.querySelector('button');
 
 let alarmTime,checkAlarm=false;
-let permission;
 ringtone=new Audio("files/ringtone.mp3")
 
 
